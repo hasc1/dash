@@ -1,0 +1,2 @@
+export GRAILS_HOME=/Users/jagpadala/code/grails-2.0.4
+export PATH="$PATH:$GRAILS_HOME/bin"
