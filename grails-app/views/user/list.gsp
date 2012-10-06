@@ -1,6 +1,6 @@
 
 <%@ page import="hascstudy.User" %>
-<!doctype html>
+<!DOCTYPE html>
 <html>
 	<head>
 		<meta name="layout" content="main">
@@ -13,6 +13,7 @@
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
 				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
+				<li><g:link class="list" action="logout"><g:message code="Logout" args="[entityName]" /></g:link></li>
 			</ul>
 		</div>
 		<div id="list-user" class="content scaffold-list" role="main">
@@ -24,15 +25,15 @@
 				<thead>
 					<tr>
 					
-						<g:sortableColumn property="firstName" title="${message(code: 'user.firstName.label', default: 'First Name')}" />
+						<g:sortableColumn property="userName" title="${message(code: 'user.userName.label', default: 'User Name')}" />
 					
-						<th><g:message code="user.hospital.label" default="Hospital" /></th>
+						<g:sortableColumn property="firstName" title="${message(code: 'user.firstName.label', default: 'First Name')}" />
 					
 						<g:sortableColumn property="lastName" title="${message(code: 'user.lastName.label', default: 'Last Name')}" />
 					
 						<g:sortableColumn property="role" title="${message(code: 'user.role.label', default: 'Role')}" />
 					
-						<g:sortableColumn property="userName" title="${message(code: 'user.userName.label', default: 'User Name')}" />
+						<th><g:message code="user.hospital.label" default="Hospital" /></th>
 					
 					</tr>
 				</thead>
@@ -40,15 +41,15 @@
 				<g:each in="${userInstanceList}" status="i" var="userInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link action="show" id="${userInstance.id}">${fieldValue(bean: userInstance, field: "firstName")}</g:link></td>
+						<td><g:link action="show" id="${userInstance.id}">${fieldValue(bean: userInstance, field: "userName")}</g:link></td>
 					
-						<td>${fieldValue(bean: userInstance, field: "hospital")}</td>
+						<td>${fieldValue(bean: userInstance, field: "firstName")}</td>
 					
 						<td>${fieldValue(bean: userInstance, field: "lastName")}</td>
 					
 						<td>${fieldValue(bean: userInstance, field: "role")}</td>
 					
-						<td>${fieldValue(bean: userInstance, field: "userName")}</td>
+						<td>${fieldValue(bean: userInstance, field: "hospital")}</td>
 					
 					</tr>
 				</g:each>

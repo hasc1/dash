@@ -14,6 +14,15 @@ class DashboardReport {
 
 
     static constraints = {
+		name(blank: false)
+		description(blank: false)
+		actualValue(blank: false)
+		targetValue(blank: false)
+		variance()
+		status()
+		statusCode()
+		reportCategory(blank: false)
+		graphType(blank: false)
     }
     
     String toString(){

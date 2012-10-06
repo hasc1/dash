@@ -1,6 +1,6 @@
 
 <%@ page import="hascstudy.User" %>
-<!doctype html>
+<!DOCTYPE html>
 <html>
 	<head>
 		<meta name="layout" content="main">
@@ -23,20 +23,29 @@
 			</g:if>
 			<ol class="property-list user">
 			
+				<g:if test="${userInstance?.userName}">
+				<li class="fieldcontain">
+					<span id="userName-label" class="property-label"><g:message code="user.userName.label" default="User Name" /></span>
+					
+						<span class="property-value" aria-labelledby="userName-label"><g:fieldValue bean="${userInstance}" field="userName"/></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${userInstance?.password}">
+				<li class="fieldcontain">
+					<span id="password-label" class="property-label"><g:message code="user.password.label" default="Password" /></span>
+					
+						<span class="property-value" aria-labelledby="password-label"><g:fieldValue bean="${userInstance}" field="password"/></span>
+					
+				</li>
+				</g:if>
+			
 				<g:if test="${userInstance?.firstName}">
 				<li class="fieldcontain">
 					<span id="firstName-label" class="property-label"><g:message code="user.firstName.label" default="First Name" /></span>
 					
 						<span class="property-value" aria-labelledby="firstName-label"><g:fieldValue bean="${userInstance}" field="firstName"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${userInstance?.hospital}">
-				<li class="fieldcontain">
-					<span id="hospital-label" class="property-label"><g:message code="user.hospital.label" default="Hospital" /></span>
-					
-						<span class="property-value" aria-labelledby="hospital-label"><g:link controller="hospital" action="show" id="${userInstance?.hospital?.id}">${userInstance?.hospital?.encodeAsHTML()}</g:link></span>
 					
 				</li>
 				</g:if>
@@ -59,11 +68,11 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${userInstance?.userName}">
+				<g:if test="${userInstance?.hospital}">
 				<li class="fieldcontain">
-					<span id="userName-label" class="property-label"><g:message code="user.userName.label" default="User Name" /></span>
+					<span id="hospital-label" class="property-label"><g:message code="user.hospital.label" default="Hospital" /></span>
 					
-						<span class="property-value" aria-labelledby="userName-label"><g:fieldValue bean="${userInstance}" field="userName"/></span>
+						<span class="property-value" aria-labelledby="hospital-label"><g:link controller="hospital" action="show" id="${userInstance?.hospital?.id}">${userInstance?.hospital?.encodeAsHTML()}</g:link></span>
 					
 				</li>
 				</g:if>

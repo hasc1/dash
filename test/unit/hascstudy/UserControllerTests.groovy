@@ -9,11 +9,10 @@ import grails.test.mixin.*
 @Mock(User)
 class UserControllerTests {
 
-
     def populateValidParams(params) {
-      assert params != null
-      // TODO: Populate valid properties like...
-      //params["name"] = 'someValidName'
+        assert params != null
+        // TODO: Populate valid properties like...
+        //params["name"] = 'someValidName'
     }
 
     void testIndex() {
@@ -30,9 +29,9 @@ class UserControllerTests {
     }
 
     void testCreate() {
-       def model = controller.create()
+        def model = controller.create()
 
-       assert model.userInstance != null
+        assert model.userInstance != null
     }
 
     void testSave() {
@@ -57,7 +56,6 @@ class UserControllerTests {
         assert flash.message != null
         assert response.redirectedUrl == '/user/list'
 
-
         populateValidParams(params)
         def user = new User(params)
 
@@ -75,7 +73,6 @@ class UserControllerTests {
 
         assert flash.message != null
         assert response.redirectedUrl == '/user/list'
-
 
         populateValidParams(params)
         def user = new User(params)
@@ -96,7 +93,6 @@ class UserControllerTests {
         assert response.redirectedUrl == '/user/list'
 
         response.reset()
-
 
         populateValidParams(params)
         def user = new User(params)

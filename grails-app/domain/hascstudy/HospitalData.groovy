@@ -29,10 +29,34 @@ class HospitalData {
 	Integer overtimeHoursMainOr
 	
 	static constraints = {
- }
-
+		hospital()
+		quarter()
+		numOrRooms()
+		numOrRoomsDedicatedOrSpecialty()
+		totalNumCases()
+		numInpatientCases()
+		numOutpatientCases()
+		totalOrMinutesForInPatientCases()
+		totalOrMinutesForOutPatientCases()
+		totalOrMinutesForTotalCases()
+		primeTimeHours()
+		numCasesStartedInPrimeTime()
+		firstScheduleStartTime()
+		numCasesStartedOnTime5Mins()
+		numCasesStartedOnTimeHospStd()
+		onTimeStartDefMinutes()
+		sameDayCancellationRate()
+		avaregeRoomUtilizationInTotal()
+		avaregeRoomUtilizationPrimeTime()
+		avaregeRoomTurnAroundPhysicians()
+		avaregeRoomTurnAroundInPatients()
+		avaregeRoomTurnAroundOutPatients()
+		avaregeRoomTurnAroundAllPatients()
+		totalWorkedHoursMainOr()
+		overtimeHoursMainOr()
+	}
     
     String toString(){
-    return id
+        return id
     }
 }

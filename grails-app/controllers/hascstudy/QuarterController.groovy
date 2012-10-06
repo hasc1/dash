@@ -6,6 +6,15 @@ class QuarterController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
+	def beforeInterceptor = [action:this.&auth]
+	
+ 	def auth() {
+		if(!session.user) {
+			redirect(controller:"User", action:"login")
+			return false
+		}
+	}
+
     def index() {
         redirect(action: "list", params: params)
     }

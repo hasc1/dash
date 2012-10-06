@@ -4,6 +4,15 @@ import org.springframework.dao.DataIntegrityViolationException
 
 class GraphTypeController {
 
+	def beforeInterceptor = [action:this.&auth]
+	
+ 	def auth() {
+		if(!session.user) {
+			redirect(controller:"User", action:"login")
+			return false
+		}
+	}
+
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index() {

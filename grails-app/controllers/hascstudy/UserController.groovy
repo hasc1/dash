@@ -4,14 +4,39 @@ import org.springframework.dao.DataIntegrityViolationException
 
 class UserController {
 
+	def login = {}
+	
+   def authenticate = {
+		def user = User.findByUserNameAndPassword(params.userName, params.password)
+		if(user){
+			session.user = user
+			flash.message = "Hello ${user.firstName}!"
+			redirect(action: "loggedin")
+		}  else{
+		flash.message = "Sorry, ${params.userName}. Please try again."
+		redirect(action:"login")
+		}
+	}
+	
+   def logout = {
+		flash.message = "Goodbye ${session.user.firstName}"
+		session.user = null
+		redirect(action:"login")
+	}
+   
+   def loggedin = {}
+   
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index() {
-        redirect(action: "list", params: params)
+		if (session.user)
+			redirect(action: "show")
+		else
+        	redirect(action: "login")
     }
 
-    def list() {
-        params.max = Math.min(params.max ? params.int('max') : 10, 100)
+    def list(Integer max) {
+        params.max = Math.min(max ?: 10, 100)
         [userInstanceList: User.list(params), userInstanceTotal: User.count()]
     }
 
@@ -26,14 +51,14 @@ class UserController {
             return
         }
 
-		flash.message = message(code: 'default.created.message', args: [message(code: 'user.label', default: 'User'), userInstance.id])
+        flash.message = message(code: 'default.created.message', args: [message(code: 'user.label', default: 'User'), userInstance.id])
         redirect(action: "show", id: userInstance.id)
     }
 
-    def show() {
-        def userInstance = User.get(params.id)
+    def show(Long id) {
+        def userInstance = User.get(id)
         if (!userInstance) {
-			flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), params.id])
+            flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), id])
             redirect(action: "list")
             return
         }
@@ -41,10 +66,10 @@ class UserController {
         [userInstance: userInstance]
     }
 
-    def edit() {
-        def userInstance = User.get(params.id)
+    def edit(Long id) {
+        def userInstance = User.get(id)
         if (!userInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), params.id])
+            flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), id])
             redirect(action: "list")
             return
         }
@@ -52,16 +77,15 @@ class UserController {
         [userInstance: userInstance]
     }
 
-    def update() {
-        def userInstance = User.get(params.id)
+    def update(Long id, Long version) {
+        def userInstance = User.get(id)
         if (!userInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), params.id])
+            flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), id])
             redirect(action: "list")
             return
         }
 
-        if (params.version) {
-            def version = params.version.toLong()
+        if (version != null) {
             if (userInstance.version > version) {
                 userInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
                           [message(code: 'user.label', default: 'User')] as Object[],
@@ -78,26 +102,26 @@ class UserController {
             return
         }
 
-		flash.message = message(code: 'default.updated.message', args: [message(code: 'user.label', default: 'User'), userInstance.id])
+        flash.message = message(code: 'default.updated.message', args: [message(code: 'user.label', default: 'User'), userInstance.id])
         redirect(action: "show", id: userInstance.id)
     }
 
-    def delete() {
-        def userInstance = User.get(params.id)
+    def delete(Long id) {
+        def userInstance = User.get(id)
         if (!userInstance) {
-			flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), params.id])
+            flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), id])
             redirect(action: "list")
             return
         }
 
         try {
             userInstance.delete(flush: true)
-			flash.message = message(code: 'default.deleted.message', args: [message(code: 'user.label', default: 'User'), params.id])
+            flash.message = message(code: 'default.deleted.message', args: [message(code: 'user.label', default: 'User'), id])
             redirect(action: "list")
         }
         catch (DataIntegrityViolationException e) {
-			flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'user.label', default: 'User'), params.id])
-            redirect(action: "show", id: params.id)
+            flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'user.label', default: 'User'), id])
+            redirect(action: "show", id: id)
         }
     }
 }

@@ -7,12 +7,18 @@ class User {
 	String lastName
     String role
     Hospital hospital
-
+	String password
+	
 	static constraints = {
- }
-
-    
-    String toString(){
-    return userName
+		userName(unique: true, blank: false)
+		password(password: true, blank: false)
+		firstName()
+		lastName()
+		role(blank: false)
+		hospital(blank: false)
+	}
+ 
+	String toString() {
+       return userName
     }
 }

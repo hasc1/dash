@@ -5,8 +5,8 @@ class Quarter {
 	String  quarter
 
 	static constraints = {
- }
-
+		quarter(blank: false)
+	}
     
     String toString(){
     return quarter

@@ -4,12 +4,21 @@ import org.springframework.dao.DataIntegrityViolationException
 
 class DashboardReportController {
 
-    static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+	def beforeInterceptor = [action:this.&auth]
+	
+ 	def auth() {
+		if(!session.user) {
+			redirect(controller:"User", action:"login")
+			return false
+		}
+	}
+
+	static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index() {
         redirect(action: "list", params: params)
     }
-
+	
     def list() {
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
         [dashboardReportInstanceList: DashboardReport.list(params), dashboardReportInstanceTotal: DashboardReport.count()]

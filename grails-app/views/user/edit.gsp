@@ -1,5 +1,5 @@
 <%@ page import="hascstudy.User" %>
-<!doctype html>
+<!DOCTYPE html>
 <html>
 	<head>
 		<meta name="layout" content="main">
