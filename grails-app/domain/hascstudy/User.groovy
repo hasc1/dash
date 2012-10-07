@@ -15,7 +15,7 @@ class User {
 		firstName()
 		lastName()
 		role(blank: false)
-		hospital(blank: false)
+		hospital(blank: true)
 	}
  
 	String toString() {
