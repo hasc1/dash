@@ -21,11 +21,13 @@ class HospitalDataController {
 
     def list() {
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
-        [hospitalDataInstanceList: HospitalData.list(params), hospitalDataInstanceTotal: HospitalData.count()]
+		def userInstance = session["user"]
+        [hospitalDataInstanceList: HospitalData.list(params), hospitalDataInstanceTotal: HospitalData.count(), userInstance: userInstance]
     }
 
     def create() {
-        [hospitalDataInstance: new HospitalData(params)]
+		def userInstance = session["user"]
+        [hospitalDataInstance: new HospitalData(params), userInstance: userInstance]
     }
 
     def save() {
@@ -40,6 +42,7 @@ class HospitalDataController {
     }
 
     def show() {
+		def user = session["user"]
         def hospitalDataInstance = HospitalData.get(params.id)
         if (!hospitalDataInstance) {
 			flash.message = message(code: 'default.not.found.message', args: [message(code: 'hospitalData.label', default: 'HospitalData'), params.id])
@@ -47,18 +50,19 @@ class HospitalDataController {
             return
         }
 
-        [hospitalDataInstance: hospitalDataInstance]
+        [hospitalDataInstance: hospitalDataInstance, userInstance: user]
     }
 
     def edit() {
         def hospitalDataInstance = HospitalData.get(params.id)
+		def userInstance = session["user"]
         if (!hospitalDataInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'hospitalData.label', default: 'HospitalData'), params.id])
             redirect(action: "list")
             return
         }
 
-        [hospitalDataInstance: hospitalDataInstance]
+        [hospitalDataInstance: hospitalDataInstance, userInstance: userInstance]
     }
 
     def update() {

@@ -1,22 +1,105 @@
-<%@ page import="hascstudy.User" %>
 <!doctype html>
- <html>
-     <head>
-         <meta name="layout" content="main">
-         <g:set var="entityName" value="HascStudy Login" />
-         <title><g:message code="HascStudy Login" args="[entityName]" /></title>
-     </head>
-     <body>
-         <a href="#create-user" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-         <div class="nav" role="navigation">
-             <ul>
-                 <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-                 <li><g:link class="logout" action="logout"><g:message code="Logout" args="[entityName]" /></g:link></li>
-             </ul>
-         </div>
-         <div id="create-user" class="content scaffold-create" role="main">
-             <h1><g:message code="Welcome ${session.user}!" args="[entityName]" /></h1>
-             <div class="message" role="status">You are now logged in. Use the links on the top to navigate the site!</div>
-         </div>
-     </body>
- </html>
+<html>
+	<head>
+		<meta name="layout" content="main"/>
+		<title>Welcome to HascStudy</title>
+
+		<meta name="layout" content="main">
+		<g:set var="entityName" value="${message(code: 'user.label', default: 'User')}" />
+		
+		<style type="text/css" media="screen">
+			#status {
+				background-color: #eee;
+				border: .2em solid #fff;
+				margin: 2em 2em 1em;
+				padding: 1em;
+				width: 12em;
+				float: left;
+				-moz-box-shadow: 0px 0px 1.25em #ccc;
+				-webkit-box-shadow: 0px 0px 1.25em #ccc;
+				box-shadow: 0px 0px 1.25em #ccc;
+				-moz-border-radius: 0.6em;
+				-webkit-border-radius: 0.6em;
+				border-radius: 0.6em;
+			}
+
+			.ie6 #status {
+				display: inline; /* float double margin fix http://www.positioniseverything.net/explorer/doubled-margin.html */
+			}
+
+			#status ul {
+				font-size: 0.9em;
+				list-style-type: none;
+				margin-bottom: 0.6em;
+				padding: 0;
+			}
+            
+			#status li {
+				line-height: 1.3;
+			}
+
+			#status h1 {
+				text-transform: uppercase;
+				font-size: 1.1em;
+				margin: 0 0 0.3em;
+			}
+
+			#page-body {
+				margin: 2em 1em 1.25em 1.5em;
+			}
+
+			h2 {
+				margin-top: 1em;
+				margin-bottom: 0.3em;
+				font-size: 1em;
+			}
+
+			p {
+				line-height: 1.5;
+				margin: 0.25em 0;
+			}
+
+			#controller-list ul {
+				list-style-position: inside;
+			}
+
+			#controller-list li {
+				line-height: 1.3;
+				list-style-position: inside;
+				margin: 0.25em 0;
+			}
+
+			@media screen and (max-width: 480px) {
+				#status {
+					display: none;
+				}
+
+				#page-body {
+					margin: 0 1em 1em;
+				}
+
+				#page-body h1 {
+					margin-top: 0;
+				}
+			}
+		</style>
+		
+	</head>
+	<body>
+	    <div class="nav" role="navigation">
+			<ul>
+				<li><g:link class="home" controller="user" action="loggedin" id="${userInstance.id}"><g:message code="default.home.label" default="Home" /></g:link></li>
+				<li><g:link class="list" controller="hospitalData" action="list"><g:message code="Hospital Data List" default="Hospital Data List" /></g:link></li>
+				<li><g:link class="edit" controller="user" action="edit" id="${userInstance.id}"><g:message code="Edit Profile" default="Edit Profile" /></g:link></li>
+				<li><a class="logout" href="${createLink(uri: '/user/logout')}"><g:message code="Logout"/></a></li>
+			</ul>
+		</div>
+		<a href="#page-body" class="skip"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
+		
+		<div id="page-body" role="main">
+			<h1>Welcome to HascStudy</h1>
+			<p>Select an option using one of the links above.</p>
+			<p>Thank you for using HascStudy!</p>
+		</div>
+	</body>
+</html>

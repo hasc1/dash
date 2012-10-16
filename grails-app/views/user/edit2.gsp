@@ -10,8 +10,9 @@
 		<a href="#edit-user" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div class="nav" role="navigation">
 			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><a class="hospitalData" href="${createLink(uri: '/hospitalData/list')}"><g:message code="Hospital Data List"/></a></li>
+				<li><g:link class="home" controller="user" action="loggedin" id="${userInstance.id}"><g:message code="default.home.label" default="Home" /></g:link></li>
+				<li><g:link class="list" controller="hospitalData" action="list"><g:message code="Hospital Data List" default="Hospital Data List"/></g:link></li>
+				<li><g:link class="edit" controller="user" action="edit" id="${userInstance.id}"><g:message code="Edit Profile" default="Edit Profile" /></g:link></li>
 				<li><a class="logout" href="${createLink(uri: '/user/logout')}"><g:message code="Logout"/></a></li>
 			</ul>
 		</div>

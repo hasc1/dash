@@ -9,24 +9,29 @@ class UserController {
    def authenticate = {
 		def user = User.findByUserNameAndPassword(params.userName, params.password)
 		if(user){
-			session.user = user
+			session["user"] = user
 			flash.message = "Hello ${user.firstName}!"
-			redirect(action: "loggedin")
+			//redirect(controller: "HospitalData", action: "list")
+			render(view: "loggedin", model: [userInstance: user])
 		}  else{
 		flash.message = "Sorry, ${params.userName}. Please try again."
 		redirect(action:"login")
 		}
 	}
+   
+   def loggedin(long id) {
+	   def user = User.get(id)
+	   render(view: "loggedin", model: [userInstance: user])
+	   //redirect(action:"loggedin")
+   }
 	
    def logout = {
 		flash.message = "Goodbye ${session.user.firstName}"
-		session.user = null
+		session["user"] = null
 		redirect(action:"login")
 	}
    
-   def loggedin = {}
-   
-    static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+   static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index() {
 		if (session.user)
@@ -42,6 +47,7 @@ class UserController {
 
     def create() {
         [userInstance: new User(params)]
+		//redirect(action: 'login')
     }
 
     def save() {
@@ -52,7 +58,8 @@ class UserController {
         }
 
         flash.message = message(code: 'default.created.message', args: [message(code: 'user.label', default: 'User'), userInstance.id])
-        redirect(action: "show", id: userInstance.id)
+		redirect(action: "login")
+		//redirect(action: "show", id: userInstance.id)
     }
 
     def show(Long id) {
@@ -67,14 +74,17 @@ class UserController {
     }
 
     def edit(Long id) {
+	//def edit() {
         def userInstance = User.get(id)
+		//def userInstance2 = session["user"]
         if (!userInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), id])
-            redirect(action: "list")
+            flash.message = message(code: 'You are not logged in', args: [message(code: 'user.label', default: 'User')])
+            redirect(action: "login")
             return
         }
 
         [userInstance: userInstance]
+		render(view: "edit2", model: [userInstance: userInstance])
     }
 
     def update(Long id, Long version) {
@@ -110,14 +120,15 @@ class UserController {
         def userInstance = User.get(id)
         if (!userInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), id])
-            redirect(action: "list")
+            redirect(action: "login")
             return
         }
 
         try {
             userInstance.delete(flush: true)
+			session["user"] = null
             flash.message = message(code: 'default.deleted.message', args: [message(code: 'user.label', default: 'User'), id])
-            redirect(action: "list")
+            redirect(action: "login")
         }
         catch (DataIntegrityViolationException e) {
             flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'user.label', default: 'User'), id])

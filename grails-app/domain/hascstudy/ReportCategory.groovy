@@ -8,7 +8,7 @@ class ReportCategory {
 
     static constraints = {
 		name(blank: false)
-		description(blank: false)
+		description()
     }
     
     	  String toString(){
