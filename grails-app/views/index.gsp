@@ -88,16 +88,32 @@
 	<body>
 	    <div class="nav" role="navigation">
 			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="login" controller="user" action="login"><g:message code="Login" args="[entityName]" /></g:link></li>
-				<li><a class="create" href="${createLink(uri: '/user/create')}"><g:message code="Register"/></a>
+			<g:if test="${userInstance != null}">
+				<li><a class="home" href="#"><g:message code="Home" default="Home" /></a></li>
+				<li><g:link class="list" controller="hospitalData" action="list"><g:message code="Hospital Data List" default="Hospital Data List" /></g:link></li>
+				<li><g:link class="edit" controller="user" action="edit" id="${userInstance.id}"><g:message code="Edit Profile" args="[entityName]" default="Edit Profile" /></g:link></li>
+				<li><a class="logout" href="${createLink(uri: '/user/logout')}"><g:message code="Logout" args="[entityName]" default="Logout" /></a></li>
+		    </g:if>
+			<g:else>
+				<li><a class="home" href="${createLink(uri: '/index')}"><g:message code="Home" default="Home" /></a></li>
+				<li><g:link class="login" controller="user" action="login"><g:message code="Login" default="Login" /></g:link></li>
+				<li><g:link class="create" controller="user" action="create"><g:message code="Register" args="[entityName]" default="Register" /></g:link></li>
+			</g:else>
 			</ul>
 		</div>
 		<a href="#page-body" class="skip"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		
 		<div id="page-body" role="main">
 			<h1>Welcome to HascStudy</h1>
+			<g:if test="${flash.message}">
+			<div class="message" role="status">${flash.message}</div>
+			</g:if>
+			<g:if test="${userInstance != null}">
+			<p>Select an option using one of the links above.</p>
+			</g:if>
+			<g:else>
 			<p>Please login or register using the links above.</p>
+			</g:else>
 			<p>Thank you for using HascStudy!</p>
 		</div>
 	</body>

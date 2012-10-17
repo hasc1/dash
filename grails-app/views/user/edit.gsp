@@ -10,9 +10,16 @@
 		<a href="#edit-user" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div class="nav" role="navigation">
 			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><a class="hospitalData" href="${createLink(uri: '/hospitalData/list')}"><g:message code="Hospital Data List"/></a></li>
-				<li><a class="logout" href="${createLink(uri: '/user/logout')}"><g:message code="Logout"/></a></li>
+				<g:if test="${userInstance != null}">
+					<li><a class="home" href="/"><g:message code="Home" default="Home" /></a></li>
+					<li><g:link class="list" controller="hospitalData" action="list"><g:message code="Hospital Data List" default="Hospital Data List" /></g:link></li>
+					<li><a class="logout" href="${createLink(uri: '/user/logout')}"><g:message code="Logout" args="[entityName]" default="Logout" /></a></li>
+			    </g:if>
+				<g:else>
+					<li><a class="home" href="/"><g:message code="Home" default="Home" /></a></li>
+					<li><g:link class="login" controller="user" action="login"><g:message code="Login" default="Login" /></g:link></li>
+					<li><g:link class="create" controller="user" action="create"><g:message code="Register" args="[entityName]" default="Register" /></g:link></li>
+				</g:else>
 			</ul>
 		</div>
 		<div id="edit-user" class="content scaffold-edit" role="main">

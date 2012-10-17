@@ -11,7 +11,7 @@
 		<a href="#show-hospitalData" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div class="nav" role="navigation">
 			<ul>
-				<li><g:link class="home" controller="user" action="loggedin" id="${userInstance.id}"><g:message code="default.home.label" default="Home" /></g:link></li>
+				<li><g:link class="home" controller="user" action="index" id="${userInstance.id}"><g:message code="default.home.label" default="Home" /></g:link></li>
 				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
 				<li><g:link class="edit" controller="user" action="edit" id="${userInstance.id}"><g:message code="Edit Profile" default="Edit Profile" /></g:link></li>
 				<li><a class="logout" href="${createLink(uri: '/user/logout')}"><g:message code="Logout"/></a></li>

@@ -11,9 +11,16 @@
 		<a href="#show-user" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div class="nav" role="navigation">
 			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
+				<g:if test="${userInstance != null}">
+					<li><g:link a class="home" controller="user" action="index" id="${userInstance.id}"><g:message code="Home" default="Home" /></g:link></li>
+					<li><g:link class="list" controller="hospitalData" action="list"><g:message code="Hospital Data List" default="Hospital Data List" /></g:link></li>
+					<li><a class="logout" href="${createLink(uri: '/user/logout')}"><g:message code="Logout" args="[entityName]" default="Logout" /></a></li>
+			    </g:if>
+				<g:else>
+					<li><a class="home" href="${createLink(uri: '/')}"><g:message code="Home" default="Home" /></a></li>
+					<li><g:link class="login" controller="user" action="login"><g:message code="Login" default="Login" /></g:link></li>
+					<li><g:link class="create" controller="user" action="create"><g:message code="Register" args="[entityName]" default="Register" /></g:link></li>
+				</g:else>
 			</ul>
 		</div>
 		<div id="show-user" class="content scaffold-show" role="main">
