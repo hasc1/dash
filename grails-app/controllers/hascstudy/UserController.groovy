@@ -12,7 +12,7 @@ class UserController {
 			session["user"] = user
 			flash.message = "Hello ${user.firstName}!"
 			//redirect(controller: "HospitalData", action: "list")
-			render(view: "loggedin", model: [userInstance: user])
+			render(view: "/index", model: [userInstance: user])
 		}  else{
 		flash.message = "Sorry, ${params.userName}. Please try again."
 		redirect(action:"login")
@@ -21,7 +21,8 @@ class UserController {
    
    def loggedin(long id) {
 	   def user = User.get(id)
-	   render(view: "loggedin", model: [userInstance: user])
+	   //render(view: "loggedin", model: [userInstance: user])
+	   render(view: "/index", model: [userInstance: user])
 	   //redirect(action:"loggedin")
    }
 	
@@ -34,8 +35,8 @@ class UserController {
    static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index() {
-		if (session.user)
-			redirect(action: "show")
+		if (session["user"])
+			render(view: "/index", model: [userInstance: session["user"]])
 		else
         	redirect(action: "login")
     }
@@ -84,7 +85,7 @@ class UserController {
         }
 
         [userInstance: userInstance]
-		render(view: "edit2", model: [userInstance: userInstance])
+		//redirect(view: "edit2", model: [userInstance: userInstance])
     }
 
     def update(Long id, Long version) {
