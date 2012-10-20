@@ -11,18 +11,8 @@ class BootStrap {
 
     def init = { servletContext ->
 		switch(GrailsUtil.environment){
-			case "development":
+		case "development":
 
-		User.executeUpdate('delete from User')
-		HospitalData.executeUpdate('delete from HospitalData')
-		DashboardReport.executeUpdate('delete from DashboardReport')
-		GraphType.executeUpdate('delete from GraphType')
-		ReportCategory.executeUpdate('delete from ReportCategory')
-		Hospital.executeUpdate('delete from Hospital')
-		Quarter.executeUpdate('delete from Quarter')
-		
-    	if (!hascstudy.Hospital.count()) 
-    	{
     	def hospital = new hascstudy.Hospital(hospitalName:"Hospital1")
         hospital.save()
         hospital = new hascstudy.Hospital(hospitalName:"Hospital2")
@@ -33,10 +23,7 @@ class BootStrap {
         hospital.save()
         hospital = new hascstudy.Hospital(hospitalName:"Hospital5")
         hospital.save()
-        }
         
-        //if (!hascstudy.Quarter.count()) 
-    	//{
 		def quarter = new hascstudy.Quarter(quarter:"Quarter1")
         quarter.save()
 
@@ -476,13 +463,10 @@ class BootStrap {
 		jsmith.save()
 		
 		break
-		
+	
 		case "production":
 		break
-		
-		
-		       // }
-	}
+	}		
 	}
     def destroy = {
     }
