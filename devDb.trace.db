@@ -1,0 +1,27 @@
+10-29 18:09:28 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "DASHBOARD_REPORT" not found; SQL statement:
+alter table dashboard_report drop constraint FK9A24193FF4750DC9 [42102-164]
+10-29 18:09:28 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "DASHBOARD_REPORT" not found; SQL statement:
+alter table dashboard_report drop constraint FK9A24193F64CD8131 [42102-164]
+10-29 18:09:28 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "HOSPITAL_DATA" not found; SQL statement:
+alter table hospital_data drop constraint FKA92A7E8FB8388768 [42102-164]
+10-29 18:09:28 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "HOSPITAL_DATA" not found; SQL statement:
+alter table hospital_data drop constraint FKA92A7E8FA549348C [42102-164]
+10-29 18:09:28 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "USER" not found; SQL statement:
+alter table user drop constraint FK36EBCBB8388768 [42102-164]
+11-07 10:10:40 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "TAGLOG" not found; SQL statement:
+alter table taglog drop constraint FKCB79856A42B33B7 [42102-164]
+11-07 10:10:41 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "TAGLOG" not found; SQL statement:
+alter table taglog drop constraint FKCB79856A470D6ED7 [42102-164]
+11-07 10:10:41 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "TAGLOG" not found; SQL statement:
+alter table taglog drop constraint FKCB79856A7325D6DD [42102-164]
+11-08 09:43:59 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "REPORT_VALUES" not found; SQL statement:
+alter table report_values drop constraint FKD82CC28D7704A955 [42102-164]

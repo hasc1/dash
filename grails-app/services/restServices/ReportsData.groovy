@@ -4,7 +4,7 @@ import org.springframework.dao.DataIntegrityViolationException
 import grails.converters.*
 import hascstudy.DashboardReport
 
-class ReportData {
+class ReportsData {
 
     def jsonList() {
     	def clientRequest = request.getHeader("accept")
@@ -178,8 +178,6 @@ class ReportData {
 	
 		println "${params.callback}(${dashboardReportListOut as JSON}); \n" 
 		render "${params.callback}(${dashboardReportListOut as JSON});" 
-  		
-
 
     }
 }
